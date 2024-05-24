@@ -8,10 +8,11 @@ public class UГ : MonoBehaviour
 
     private int DayCount = 0;
     public int NPCAmount = 3;
-    public int Citizens = 7;
+    public int Citizens = 8;
     private int NewCharCount = 0;
     private float AvgMoney = 0;
     private float AvgEmotion = 0;
+    private int Deaths = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -59,7 +60,7 @@ public class UГ : MonoBehaviour
     private void EmotionCount(float value)
     {
         value = value * Citizens;
-        AvgEmotion= 0;
+        
         AvgEmotion += value;
         AvgEmotion = AvgEmotion / Citizens;
         Debug.Log("Avg Emotions" + AvgEmotion);
@@ -77,7 +78,7 @@ public class UГ : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Text.text = $"День - {DayCount}\r\nСредняя зарплата = {AvgMoney / Citizens}\r\nКоличество смертей = 4\r\nКоличество населения = {Citizens}\r\nЭмоциональный фон = {AvgEmotion / Citizens}" ;
+        Text.text = $"День - {DayCount}\r\nСредняя зарплата = {AvgMoney / Citizens}\r\nКоличество смертей = {Deaths}\r\nКоличество населения = {Citizens}\r\nЭмоциональный фон = {AvgEmotion / Citizens}" ;
 
 
 
