@@ -357,6 +357,8 @@ public class NPC : MonoBehaviour
             if (Chance > 30)
             {
                 Positive = true;
+                Negative = false;
+
             }
             else { Positive = false; }
 
@@ -367,6 +369,8 @@ public class NPC : MonoBehaviour
             if (Chance > 30)
             {
                 Negative = true;
+                Positive = false;
+
             }
             else { Negative = false; }
         }
