@@ -7,8 +7,8 @@ public class UГ : MonoBehaviour
     public TextMeshProUGUI Text;
 
     private int DayCount = 0;
-    public int NPCAmount = 3;
-    public int Citizens = 8;
+    //public int NPCAmount = 3;
+    public int Citizens = 0;
     private int NewCharCount = 0;
     private float AvgMoney = 0;
     private float AvgEmotion = 0;
@@ -22,7 +22,7 @@ public class UГ : MonoBehaviour
     private void OnEnable()
     {
         EventManager.onDayChanged += NewDay;
-        //NPC.onCharChange += CharChange;
+        NPC.onCharChange += CharChange;
         NPC.onMoney += MoneyCount;
         NPC.onEmotions += EmotionCount;
         NPC.onBehaviourChange += BehaviourChange;
@@ -30,7 +30,7 @@ public class UГ : MonoBehaviour
     private void OnDisable()
     {
         EventManager.onDayChanged -= NewDay;
-        //NPC.onCharChange += CharChange;
+        NPC.onCharChange += CharChange;
 
 
     }
@@ -45,24 +45,28 @@ public class UГ : MonoBehaviour
     }
     private void CharChange()
     {
-        Debug.Log(NPCAmount);
-       
+        Citizens ++;
+        //Citizens = NPCAmount;
+
+
     }
     private void MoneyCount(float value)
     {
-        AvgMoney = 0;
         AvgMoney += value;
-        //AvgMoney = AvgMoney/ Citizens;
-        Debug.Log("Avg Mon" + AvgMoney);
+        AvgMoney = (AvgMoney/ Citizens);
+       // Debug.Log("Avg Mon" + AvgMoney);
 
     }
 
     private void EmotionCount(float value)
     {
-        value = value * Citizens;
-        
+
+        Debug.Log(value);
         AvgEmotion += value;
         AvgEmotion = AvgEmotion / Citizens;
+        if (!(AvgEmotion > -100 || AvgEmotion < 100))
+                AvgEmotion = 20*Random.Range(-3, 3);
+
         Debug.Log("Avg Emotions" + AvgEmotion);
 
     }
@@ -78,7 +82,7 @@ public class UГ : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Text.text = $"День - {DayCount}\r\nСредняя зарплата = {AvgMoney / Citizens}\r\nКоличество смертей = {Deaths}\r\nКоличество населения = {Citizens}\r\nЭмоциональный фон = {AvgEmotion / Citizens}" ;
+        Text.text = $"День - {DayCount}\r\nСредняя зарплата = {AvgMoney*100 }\r\nКоличество смертей = {Deaths}\r\nКоличество населения = {Citizens}\r\nЭмоциональный фон = {AvgEmotion}" ;
 
 
 

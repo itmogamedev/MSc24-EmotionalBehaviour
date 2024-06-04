@@ -24,12 +24,12 @@ public class NPC : MonoBehaviour
     public float Spending = 0;
     public float Income = 0;
     // Emotions
-    public float Calm = 0; 
-    public float Happy= 0; 
-    public float Surprise = 0; 
-    public float Disgust = 0; 
-    public float Interest = 0; 
-    public int  ColleguesAmount=0;
+    public float Calm = 1; 
+    public float Happy= 1; 
+    public float Surprise = 1; 
+    public float Disgust = 1; 
+    public float Interest = 1; 
+    public int  ColleguesAmount=1;
 
 
 
@@ -66,7 +66,10 @@ public class NPC : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        onMoney?.Invoke(Income);
+        EmotionCalc();
+        CharCount();
+        onEmotions?.Invoke(EmotionalIntencity);
     }
 
     public static Action onCharChange;
@@ -79,11 +82,13 @@ public class NPC : MonoBehaviour
     public static Action<float> onEmotions;
 
 
-
+    
     private void OnEnable()
     {
         EventManager.onDayChanged += NewDay ;
-       
+        
+
+
     }
     private void OnDisable()
     {
@@ -143,13 +148,13 @@ public class NPC : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.I))
         {
-            Debug.Log("Calm =" + Calm);
-            Debug.Log("Happy =" + Happy);
-            Debug.Log("Surprise =" + Surprise);
-            Debug.Log("Disgust =" + Disgust);
-            Debug.Log("Interest =" + Interest);
+            //Debug.Log("Calm =" + Calm);
+            //Debug.Log("Happy =" + Happy);
+            //Debug.Log("Surprise =" + Surprise);
+            //Debug.Log("Disgust =" + Disgust);
+            //Debug.Log("Interest =" + Interest);
             Debug.Log("EmotionalIntencity =" + EmotionalIntencity);
-            Debug.Log("NeedSutisfied =" + NeedSutisfied);
+            //Debug.Log("NeedSutisfied =" + NeedSutisfied);
 
         }
 
@@ -162,8 +167,6 @@ public class NPC : MonoBehaviour
     {
 
         EmotionCalc();
-        CharCount();
-        onMoney?.Invoke(Income);
         onEmotions?.Invoke(EmotionalIntencity);
         Debug.Log(FinancialNeed);
     }
@@ -211,10 +214,14 @@ public class NPC : MonoBehaviour
             NeedSutisfied = 1;
         else
             NeedSutisfied = -1;
+
+
         EmotionalIntencity = EmotionalIntencity * NeedSutisfied;
+
+
         if (EmotionalIntencity >100)
             EmotionalIntencity = 100;
-        if (EmotionalIntencity <-100)
+        else if (EmotionalIntencity <-100)
             EmotionalIntencity = -100;
 
 
@@ -346,7 +353,7 @@ public class NPC : MonoBehaviour
         EmotionalIntencity = EmotionalIntencity * NeedSutisfied;
         if (EmotionalIntencity > 100)
             EmotionalIntencity = 100;
-        if (EmotionalIntencity < -100)
+        else if (EmotionalIntencity < -100)
             EmotionalIntencity = -100;
 
 
